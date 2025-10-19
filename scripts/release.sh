@@ -254,16 +254,14 @@ cp dist/ddnet_maploader-"${tag_name:1}".tar.gz /tmp/ddnet_maploader_test/
 		echo "Error: local test import failed (venv)"
 		exit 1
 	fi
-	if ! python -c "import ddnet_maploader.load_map"
+	if ! python -c "from ddnet_maploader import load_map"
 	then
-		echo "Error: local test import ddnet_maploader.load_map failed (venv)"
+		echo "Error: local test from ddnet_maploader import load_map failed (venv)"
 		exit 1
 	fi
 
-	# TODO: add tests
-
-	# pip install pytest
-	# python -m pytest tests || exit 1
+	pip install pytest
+	python -m pytest tests || exit 1
 ) || {
 	echo "[*] venv install tests failed.";
 	exit 1;
