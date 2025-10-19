@@ -279,6 +279,14 @@ if [ "$(git diff HEAD --name-only)" != 'ddnet_maploader/__version__.py' ]
 then
 	echo "Error: unexpected files would be included in the commit"
 	git diff HEAD  --name-only | grep -v '^ddnet_maploader/__version__.py$' | awk '{ print "  " $0 }'
+
+	echo "\n\n\n" -e
+
+git diff HEAD  --name-only
+git diff HEAD  --name-only
+git diff HEAD  --name-only
+git diff HEAD  --name-only
+git diff HEAD  --name-only
 	exit 1
 fi
 
