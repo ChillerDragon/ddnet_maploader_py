@@ -1,0 +1,42 @@
+name: Python
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pylint
+    - name: Install C99 dependency
+      run: |
+        git clone https://github.com/Teero888/ddnet_maploader_c99
+        cd ddnet_maploader_c99
+        git checkout 68de38e317ea5fb2ed005479c6046338007d8420
+        mkdir build && cd build
+        cmake ..
+        sudo make install
+    - name: Install lib
+      run: |
+          pip install -e .
+    - name: Run load map example
+      run: |
+        wget https://github.com/ChillerTW/GitMaps/raw/refs/heads/master/tinycave.map
+        ./examples/load_map.py tinycave.map
