@@ -41,7 +41,7 @@ class TuneLayer(ctypes.Structure):
         ("type", ctypes.POINTER(ctypes.c_ubyte)),
     ]
 
-class MapData(ctypes.Structure):
+class _MapDataInternal(ctypes.Structure):
     _fields_ = [
         ("game_layer", GameLayer),
         ("width", ctypes.c_int),
@@ -57,3 +57,15 @@ class MapData(ctypes.Structure):
         ("_map_file_data", ctypes.c_void_p),
         ("_map_file_size", ctypes.c_size_t),
     ]
+
+class MapData:
+    game_layer: GameLayer
+    width: int
+    height: int
+    front_layer: GameLayer
+    tele_layer: TeleLayer
+    speedup_layer: SpeedupLayer
+    switch_layer: SwitchLayer
+    door_layer: DoorLayer
+    tune_layer: TuneLayer
+    settings: list[str]

@@ -2,7 +2,21 @@ from typing import Optional
 from . import cbindings, ddnet_maploader
 
 def load_map(map_name: str) -> Optional[ddnet_maploader.MapData]:
-    map_data = cbindings.load_map(map_name.encode(encoding='utf-8'))
-    if map_data.game_layer.data:
-        return map_data
-    return None
+    raw_data = cbindings.load_map(map_name.encode(encoding='utf-8'))
+    if not raw_data.game_layer.data:
+        return None
+
+    map_data = ddnet_maploader.MapData()
+    map_data.game_layer = raw_data.game_layer
+    map_data.width = raw_data.width
+    map_data.height = raw_data.height
+    map_data.front_layer = raw_data.front_layer
+    map_data.tele_layer = raw_data.tele_layer
+    map_data.speedup_layer = raw_data.speedup_layer
+    map_data.switch_layer = raw_data.switch_layer
+    map_data.door_layer = raw_data.door_layer
+    map_data.tune_layer = raw_data.tune_layer
+    map_data.settings = []
+    for i in range(0, raw_data.num_settings - 1):
+        map_data.settings.append(raw_data.settings[i].decode("utf-8"))
+    return map_data
