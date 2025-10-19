@@ -57,7 +57,7 @@ if [ ! -x "$(command -v twine)" ]
 then
 	echo "Error: command twine not found. Make sure to run:"
 	echo ""
-	echo "       pip install -r twine"
+	echo "       pip install twine build"
 	echo ""
 	exit 1
 fi
