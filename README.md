@@ -21,5 +21,11 @@ make install
 import ddnet_maploader
 
 with ddnet_maploader.load_map("/home/chiller/.teeworlds/maps/tinycave.map") as map:
-    print(map.width)
+    x = 3
+    y = 3
+    tile = map.game_layer.data[y * map.width + x]
+    print(f"at x={x} y={y} tile={tile}")
+
+    for setting in map.settings:
+        print(f"map setting: {setting}")
 ```
