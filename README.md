@@ -15,6 +15,10 @@ make install
 
 ## sample usage
 
+```
+pip install ddnet-maploader
+```
+
 ```python
 #!/usr/bin/env python3
 
