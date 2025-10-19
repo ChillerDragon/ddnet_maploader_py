@@ -19,6 +19,7 @@ make install
 #!/usr/bin/env python3
 
 import ddnet_maploader
-map = ddnet_maploader.load_map("/home/chiller/.teeworlds/maps/tinycave.map")
-print(map.width)
+
+with ddnet_maploader.load_map("/home/chiller/.teeworlds/maps/tinycave.map") as map:
+    print(map.width)
 ```

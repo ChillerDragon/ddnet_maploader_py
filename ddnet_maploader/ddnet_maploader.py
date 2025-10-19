@@ -1,5 +1,7 @@
 import ctypes
 
+from . import cbindings
+
 class GameLayer(ctypes.Structure):
     _fields_ = [
         ("data", ctypes.POINTER(ctypes.c_ubyte)),
@@ -69,3 +71,12 @@ class MapData:
     door_layer: DoorLayer
     tune_layer: TuneLayer
     settings: list[str]
+
+    _internal_data: _MapDataInternal
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self._internal_data:
+            cbindings._free_map_data(ctypes.byref(self._internal_data))

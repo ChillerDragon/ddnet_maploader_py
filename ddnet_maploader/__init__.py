@@ -1,12 +1,13 @@
 from typing import Optional
 from . import cbindings, ddnet_maploader
 
-def load_map(map_name: str) -> Optional[ddnet_maploader.MapData]:
+def load_map(map_name: str) -> ddnet_maploader.MapData:
     raw_data = cbindings.load_map(map_name.encode(encoding='utf-8'))
     if not raw_data.game_layer.data:
-        return None
+        raise ValueError("failed to load map")
 
     map_data = ddnet_maploader.MapData()
+    map_data._internal_data = raw_data
     map_data.game_layer = raw_data.game_layer
     map_data.width = raw_data.width
     map_data.height = raw_data.height
