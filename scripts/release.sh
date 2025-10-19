@@ -155,7 +155,8 @@ then
 		fi
 	else
 		echo "Error: failed to parse latest tag"
-		exit 1
+		latest_tag=v0.0.0
+		# exit 1
 	fi
 else
 	echo "Error: tag has to match vMAJOR.MINOR.PATCH format"
